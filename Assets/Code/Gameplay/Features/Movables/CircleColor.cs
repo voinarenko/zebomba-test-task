@@ -8,10 +8,7 @@ namespace Code.Gameplay.Features.Movables
     [SerializeField] private List<Color> _colors;
     [SerializeField] private SpriteRenderer _renderer;
     
-    private void Awake() =>
-      SetColor();
-
-    private void SetColor()
+    public void SetColor()
     {
       if (_renderer) 
         _renderer.color = _colors[Random.Range(0, _colors.Count)];

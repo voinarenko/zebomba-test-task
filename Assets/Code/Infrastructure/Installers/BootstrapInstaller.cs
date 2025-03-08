@@ -1,3 +1,4 @@
+using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
 using Code.Gameplay.StaticData;
 using Code.Gameplay.Windows;
@@ -21,6 +22,7 @@ namespace Code.Infrastructure.Installers
       BindGameplayServices();
       BindUIServices();
       BindUIFactories();
+      BindGameplayFactories();
       BindStateMachine();
       BindStateFactory();
       BindGameStates();
@@ -47,6 +49,9 @@ namespace Code.Infrastructure.Installers
 
     private void BindUIFactories() =>
       Container.Bind<IWindowFactory>().To<WindowFactory>().AsSingle();
+
+    private void BindGameplayFactories() =>
+      Container.Bind<ICircleFactory>().To<CircleFactory>().AsSingle();
 
     private void BindStateMachine() =>
       Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();

@@ -8,5 +8,6 @@ namespace Code.Gameplay.StaticData
     void LoadAll();
     
     GameObject GetWindowPrefab(WindowId id);
+    GameObject GetCirclePrefab();
   }
 }

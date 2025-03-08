@@ -454,6 +454,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &647665395 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8455643843616683719, guid: f13ccf45915a520449a9c8c29f693408, type: 3}
+  m_PrefabInstance: {fileID: 1884246764269040111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &813654908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3413134698697967236, guid: d03ce9939e4d01a44b3b83f3faeebbd9, type: 3}
@@ -548,8 +553,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a2037a9995f403d8b74f4e04e1e6803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circle: {fileID: 1884246764269040112}
   _dropZone: {fileID: 813654909}
+  _circleContainer: {fileID: 647665395}
   _circlesInWells: {fileID: 1955072652}
   _circlesInPool: {fileID: 1566243558}
 --- !u!114 &1128832721
@@ -881,17 +886,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f13ccf45915a520449a9c8c29f693408, type: 3}
---- !u!114 &1884246764269040112 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2147555685766840450, guid: f13ccf45915a520449a9c8c29f693408, type: 3}
-  m_PrefabInstance: {fileID: 1884246764269040111}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a1523bfef2f46d39d0e50aafb7d571c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6632346923191551844
 PrefabInstance:
   m_ObjectHideFlags: 0
