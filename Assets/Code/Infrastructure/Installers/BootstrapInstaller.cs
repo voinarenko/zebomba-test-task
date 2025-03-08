@@ -6,6 +6,7 @@ using Code.Infrastructure.Loading;
 using Code.Infrastructure.States.Factory;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
+using Code.Progress.Provider;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
@@ -23,6 +24,7 @@ namespace Code.Infrastructure.Installers
       BindStateMachine();
       BindStateFactory();
       BindGameStates();
+      BindProgressServices();
     }
 
     private void BindInputService() =>
@@ -65,6 +67,9 @@ namespace Code.Infrastructure.Installers
       Container.BindInterfacesAndSelfTo<ResultLoadState>().AsSingle();
       Container.BindInterfacesAndSelfTo<ResultLoopState>().AsSingle();
     }
+
+    private void BindProgressServices() =>
+      Container.Bind<IProgressProvider>().To<ProgressProvider>().AsSingle();
 
     public void Initialize() =>
       Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
