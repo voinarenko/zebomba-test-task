@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.Gameplay.Features.Circle
+namespace Code.Gameplay.Features.Movables
 {
   public class CircleColor : MonoBehaviour
   {

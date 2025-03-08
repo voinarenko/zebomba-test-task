@@ -10,10 +10,8 @@ namespace Code.Infrastructure.Installers
     
     public override void InstallBindings()
     {
-      foreach (MonoBehaviour initializer in Initializers)
-      {
+      foreach (var initializer in Initializers) 
         Container.BindInterfacesTo(initializer.GetType()).FromInstance(initializer).AsSingle();
-      }
     }
   }
 }

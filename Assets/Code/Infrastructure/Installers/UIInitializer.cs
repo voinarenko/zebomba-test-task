@@ -6,9 +6,8 @@ namespace Code.Infrastructure.Installers
 {
   public class UIInitializer : MonoBehaviour, IInitializable
   {
-    private IWindowFactory _windowFactory;
-    
     public RectTransform UIRoot;
+    private IWindowFactory _windowFactory;
 
     [Inject]
     private void Construct(IWindowFactory windowFactory) => 
