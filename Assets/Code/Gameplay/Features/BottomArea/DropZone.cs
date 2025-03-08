@@ -1,5 +1,6 @@
 ﻿using Code.Gameplay.Features.BottomArea.Wells;
 using Code.Gameplay.Features.Movables;
+using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
 using DG.Tweening;
 using System.Collections.Generic;
@@ -16,13 +17,20 @@ namespace Code.Gameplay.Features.BottomArea
     private IInputService _inputService;
     private Transform _circlesInWells;
     private Circle _currentCircle;
+    private InputActions _controls;
+    private ICircleFactory _circleFactory;
 
     [Inject]
-    public void Construct(IInputService inputService) =>
+    public void Construct(IInputService inputService, ICircleFactory circleFactory)
+    {
+      _circleFactory = circleFactory;
       _inputService = inputService;
+    }
 
+    public void SetControls() => _controls = _inputService.GetActions();
+    
     public void Subscribe() =>
-      _inputService.GetActions().UI.Drop.performed += DropCircle;
+      _controls.UI.Drop.performed += DropCircle;
 
     public void SetContainer(Transform wells) =>
       _circlesInWells = wells;
@@ -41,6 +49,7 @@ namespace Code.Gameplay.Features.BottomArea
 
     private void DropCircle(InputAction.CallbackContext obj)
     {
+      _controls.Disable();
       _currentCircle.transform.SetParent(_circlesInWells);
       var target = FindClosestWell(_currentCircle.transform.position.x);
       _currentCircle.transform
@@ -52,7 +61,12 @@ namespace Code.Gameplay.Features.BottomArea
           _currentCircle.transform
             .DOMove(target.GetFreeSlot(target.transform).position, _currentCircle.Speed)
             .SetEase(Ease.Linear)
-            .SetSpeedBased();
+            .SetSpeedBased()
+            .OnComplete(() =>
+            {
+              _currentCircle = _circleFactory.GetCircle();
+              _controls.Enable();
+            });
         });
     }
   }

@@ -20,6 +20,7 @@ namespace Code.Infrastructure.Installers
     public void Initialize()
     {
       _circleFactory.SetContainers(_circleContainer, _circlesInPool);
+      _dropZone.SetControls();
       _dropZone.Subscribe();
       _dropZone.SetContainer(_circlesInWells);
       _dropZone.SetCircle(_circleFactory.GetCircle());
