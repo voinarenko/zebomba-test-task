@@ -1,4 +1,6 @@
 using Code.Gameplay.Input.Service;
+using Code.Gameplay.StaticData;
+using Code.Gameplay.Windows;
 using Code.Infrastructure.Async.Service;
 using Code.Infrastructure.Loading;
 using Code.Infrastructure.States.Factory;
@@ -15,6 +17,9 @@ namespace Code.Infrastructure.Installers
       BindInputService();
       BindInfrastructureServices();
       BindCommonServices();
+      BindGameplayServices();
+      BindUIServices();
+      BindUIFactories();
       BindStateMachine();
       BindStateFactory();
       BindGameStates();
@@ -31,6 +36,15 @@ namespace Code.Infrastructure.Installers
       Container.Bind<IAsyncService>().To<AsyncService>().AsSingle();
       Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
     }
+
+    private void BindGameplayServices() =>
+      Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+
+    private void BindUIServices() =>
+      Container.Bind<IWindowService>().To<WindowService>().AsSingle();
+
+    private void BindUIFactories() =>
+      Container.Bind<IWindowFactory>().To<WindowFactory>().AsSingle();
 
     private void BindStateMachine() =>
       Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
