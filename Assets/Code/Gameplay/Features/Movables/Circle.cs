@@ -4,6 +4,7 @@ namespace Code.Gameplay.Features.Movables
 {
   public class Circle : MonoBehaviour
   {
+    public int CurrentColorIndex => _color.CurrentColorIndex;
     public float Speed = 10;
 
     private CircleColor _color;

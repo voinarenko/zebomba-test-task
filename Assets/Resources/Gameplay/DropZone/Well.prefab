@@ -136,6 +136,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotTop
       objectReference: {fileID: 0}
+    - target: {fileID: 4742205940006731827, guid: e8f814cc0a2e667419f8272ec6424395, type: 3}
+      propertyPath: Index
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8074335332495228960, guid: e8f814cc0a2e667419f8272ec6424395, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -208,6 +212,10 @@ PrefabInstance:
     - target: {fileID: 3261737247898139499, guid: e8f814cc0a2e667419f8272ec6424395, type: 3}
       propertyPath: m_Name
       value: SlotCentral
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742205940006731827, guid: e8f814cc0a2e667419f8272ec6424395, type: 3}
+      propertyPath: Index
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8074335332495228960, guid: e8f814cc0a2e667419f8272ec6424395, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,6 +14,7 @@ namespace Code.Gameplay.Features.BottomArea
   public class DropZone : MonoBehaviour
   {
     [SerializeField] private List<Well> _wells;
+    private DroppedCircles _droppedCircles;
     private IInputService _inputService;
     private Transform _circlesInWells;
     private Circle _currentCircle;
@@ -26,8 +27,12 @@ namespace Code.Gameplay.Features.BottomArea
       _circleFactory = circleFactory;
       _inputService = inputService;
     }
+    
+    private void Awake() => 
+      TryGetComponent(out _droppedCircles);
 
-    public void SetControls() => _controls = _inputService.GetActions();
+    public void SetControls() => 
+      _controls = _inputService.GetActions();
     
     public void Subscribe() =>
       _controls.UI.Drop.performed += DropCircle;
@@ -51,19 +56,22 @@ namespace Code.Gameplay.Features.BottomArea
     {
       _controls.Disable();
       _currentCircle.transform.SetParent(_circlesInWells);
-      var target = FindClosestWell(_currentCircle.transform.position.x);
+      var well = FindClosestWell(_currentCircle.transform.position.x);
+      var slot = well.GetFreeSlot();
+      _droppedCircles.Matrix[well.Index, slot.Index] = _currentCircle;
       _currentCircle.transform
-        .DOMove(target.transform.position, _currentCircle.Speed)
+        .DOMove(well.transform.position, _currentCircle.Speed)
         .SetEase(Ease.Linear)
         .SetSpeedBased()
         .OnComplete(() =>
         {
           _currentCircle.transform
-            .DOMove(target.GetFreeSlot(target.transform).position, _currentCircle.Speed)
+            .DOMove(slot.transform.position, _currentCircle.Speed)
             .SetEase(Ease.Linear)
             .SetSpeedBased()
             .OnComplete(() =>
             {
+              _droppedCircles.Check();
               _currentCircle = _circleFactory.GetCircle();
               _controls.Enable();
             });

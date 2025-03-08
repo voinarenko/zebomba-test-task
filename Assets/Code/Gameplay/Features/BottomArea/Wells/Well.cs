@@ -7,16 +7,23 @@ namespace Code.Gameplay.Features.BottomArea.Wells
 {
   public class Well : MonoBehaviour
   {
+    public int Index;
+    
     [SerializeField] private List<Slot> _slots;
 
-    public Transform GetFreeSlot(Transform parent)
+    public List<Slot> GetSlots() =>
+      _slots;
+
+    public Slot GetFreeSlot()
     {
+      Slot result = null;
       foreach (var slot in _slots.Where(slot => !slot.IsOccupied))
       {
         slot.IsOccupied = true;
-        return slot.transform;
+        result = slot;
+        break;
       }
-      return parent;
+      return result;
     }
   }
 }
