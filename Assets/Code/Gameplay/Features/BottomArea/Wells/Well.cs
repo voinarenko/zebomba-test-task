@@ -12,7 +12,10 @@ namespace Code.Gameplay.Features.BottomArea.Wells
     public Transform GetFreeSlot(Transform parent)
     {
       foreach (var slot in _slots.Where(slot => !slot.IsOccupied))
+      {
+        slot.IsOccupied = true;
         return slot.transform;
+      }
       return parent;
     }
   }

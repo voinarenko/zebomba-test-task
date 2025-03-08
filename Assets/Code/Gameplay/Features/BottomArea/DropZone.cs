@@ -46,7 +46,14 @@ namespace Code.Gameplay.Features.BottomArea
       _currentCircle.transform
         .DOMove(target.transform.position, _currentCircle.Speed)
         .SetEase(Ease.Linear)
-        .SetSpeedBased();
+        .SetSpeedBased()
+        .OnComplete(() =>
+        {
+          _currentCircle.transform
+            .DOMove(target.GetFreeSlot(target.transform).position, _currentCircle.Speed)
+            .SetEase(Ease.Linear)
+            .SetSpeedBased();
+        });
     }
   }
 }
