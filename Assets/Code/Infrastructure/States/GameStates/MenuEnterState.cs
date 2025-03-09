@@ -9,8 +9,7 @@ namespace Code.Infrastructure.States.GameStates
     private readonly IGameStateMachine _stateMachine;
     private readonly IWindowService _windowService;
 
-    public MenuEnterState(
-      IGameStateMachine stateMachine, IWindowService windowService)
+    public MenuEnterState(IGameStateMachine stateMachine, IWindowService windowService)
     {
       _windowService = windowService;
       _stateMachine = stateMachine;

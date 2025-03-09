@@ -16,7 +16,7 @@ namespace Code.Infrastructure.States.GameStates
     }
     
     public void Enter() =>
-      _sceneLoader.LoadScene(Scenes.Level, OnLoaded);
+      _sceneLoader.LoadScene(Scenes.Result, OnLoaded);
 
     public void Exit()
     {

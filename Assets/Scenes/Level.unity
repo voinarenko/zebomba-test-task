@@ -607,6 +607,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 715975689485500611, guid: f13ccf45915a520449a9c8c29f693408, type: 3}
   m_PrefabInstance: {fileID: 1884246764269040111}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1737525859 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1649988418718711348, guid: f13ccf45915a520449a9c8c29f693408, type: 3}
+  m_PrefabInstance: {fileID: 1884246764269040111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1754575120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,6 +939,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4129598343761845223, guid: d03ce9939e4d01a44b3b83f3faeebbd9, type: 3}
+      propertyPath: _ropeRenderer
+      value: 
+      objectReference: {fileID: 1737525859}
     - target: {fileID: 6130906251191554796, guid: d03ce9939e4d01a44b3b83f3faeebbd9, type: 3}
       propertyPath: m_Name
       value: BottomArea

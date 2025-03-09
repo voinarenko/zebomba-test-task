@@ -1,4 +1,4 @@
-using Code.Gameplay.Features.BottomArea;
+using Code.Gameplay.Features.BottomArea.Services;
 using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
 using Code.Gameplay.StaticData;

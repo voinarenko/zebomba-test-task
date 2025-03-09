@@ -2,7 +2,7 @@
 using Code.Gameplay.Features.Movables;
 using System.Collections.Generic;
 
-namespace Code.Gameplay.Features.BottomArea
+namespace Code.Gameplay.Features.BottomArea.Services
 {
   public interface ICirclesRemoveService
   {

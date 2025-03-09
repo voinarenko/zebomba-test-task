@@ -4,7 +4,7 @@ using Code.Gameplay.Features.Movables.Factory;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Code.Gameplay.Features.BottomArea
+namespace Code.Gameplay.Features.BottomArea.Services
 {
   public class CirclesRemoveService : ICirclesRemoveService
   {
