@@ -19,16 +19,16 @@ namespace Code.Gameplay.Features.BottomArea
   {
     [SerializeField] private List<Well> _wells;
     [SerializeField] private SpriteRenderer _ropeRenderer;
+    private readonly List<Circle> _totalCircles = new();
     private IColorMatchService _colorMatchService;
     private IInputService _inputService;
     private ICircleFactory _circleFactory;
     private ICirclesRemoveService _circlesRemoveService;
     private IGameStateMachine _stateMachine;
+    private IProgressProvider _progress;
     private Transform _circlesInWells;
     private Circle _currentCircle;
     private InputActions _controls;
-    private readonly List<Circle> _totalCircles = new();
-    private IProgressProvider _progress;
 
     [Inject]
     public void Construct(IInputService inputService, ICircleFactory circleFactory,
@@ -84,6 +84,7 @@ namespace Code.Gameplay.Features.BottomArea
         .SetSpeedBased()
         .OnComplete(() =>
         {
+          
           _currentCircle.transform
             .DOMove(slot.transform.position, _currentCircle.Speed)
             .SetEase(Ease.Linear)

@@ -11,5 +11,6 @@ namespace Code.Gameplay.StaticData
     GameObject GetWindowPrefab(WindowId id);
     GameObject GetCirclePrefab();
     CircleConfig GetCircleConfig(int id);
+    GameObject GetExplosionPrefab();
   }
 }

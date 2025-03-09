@@ -1,4 +1,5 @@
 ﻿using Code.Gameplay.Features.BottomArea.Wells;
+using Code.Gameplay.Features.Explosion.Factory;
 using Code.Gameplay.Features.Movables;
 using Code.Gameplay.Features.Movables.Factory;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace Code.Gameplay.Features.BottomArea.Services
   {
     private readonly IColorMatchService _colorMatchService;
     private readonly ICircleFactory _circleFactory;
+    private readonly IExplosionFactory _explosionFactory;
 
-    public CirclesRemoveService(IColorMatchService colorMatchService, ICircleFactory circleFactory)
+    public CirclesRemoveService(IColorMatchService colorMatchService, ICircleFactory circleFactory,
+      IExplosionFactory explosionFactory)
     {
+      _explosionFactory = explosionFactory;
       _colorMatchService = colorMatchService;
       _circleFactory = circleFactory;
     }
@@ -22,9 +26,9 @@ namespace Code.Gameplay.Features.BottomArea.Services
       var isVertical = CheckIfVertical(circles);
       foreach (var circle in circles)
       {
-        _colorMatchService.SetMatrixElement(circle.CurrentWell, circle.CurrentSlot, null);
         if (!isVertical)
           UpdateNextCirclePosition(circle, totalCircles);
+        _explosionFactory.GetExplosion(circle.transform);
         _circleFactory.PutCircle(circle);
         totalCircles.Remove(circle);
       }

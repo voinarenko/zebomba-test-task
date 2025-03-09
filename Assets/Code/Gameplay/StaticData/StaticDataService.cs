@@ -13,6 +13,7 @@ namespace Code.Gameplay.StaticData
   {
     private Dictionary<WindowId, GameObject> _windowPrefabsById;
     private GameObject _circlePrefab;
+    private GameObject _explosionPrefab;
     private List<CircleConfig> _circleConfigs;
 
     public void LoadAll()
@@ -20,6 +21,7 @@ namespace Code.Gameplay.StaticData
       LoadWindows();
       LoadCirclesData();
       LoadCirclePrefab();
+      LoadExplosionPrefab();
     }
 
     public CircleConfig GetCircleConfig(int id) =>
@@ -27,6 +29,9 @@ namespace Code.Gameplay.StaticData
     
     public GameObject GetCirclePrefab() =>
       _circlePrefab;
+    
+    public GameObject GetExplosionPrefab() =>
+      _explosionPrefab;
 
     public GameObject GetWindowPrefab(WindowId id) =>
       _windowPrefabsById.TryGetValue(id, out var prefab)
@@ -47,5 +52,8 @@ namespace Code.Gameplay.StaticData
 
     private void LoadCirclePrefab() =>
       _circlePrefab = Resources.Load<GameObject>("Gameplay/Pendulum/Circle");
+
+    private void LoadExplosionPrefab() =>
+      _explosionPrefab = Resources.Load<GameObject>("Gameplay/Pendulum/Explosion");
   }
 }

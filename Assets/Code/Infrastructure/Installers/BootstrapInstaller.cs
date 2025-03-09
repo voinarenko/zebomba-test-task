@@ -1,5 +1,6 @@
 using Code.Gameplay.Common.Random;
 using Code.Gameplay.Features.BottomArea.Services;
+using Code.Gameplay.Features.Explosion.Factory;
 using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
 using Code.Gameplay.StaticData;
@@ -57,8 +58,11 @@ namespace Code.Infrastructure.Installers
     private void BindUIFactories() =>
       Container.Bind<IWindowFactory>().To<WindowFactory>().AsSingle();
 
-    private void BindGameplayFactories() =>
+    private void BindGameplayFactories()
+    {
       Container.Bind<ICircleFactory>().To<CircleFactory>().AsSingle();
+      Container.Bind<IExplosionFactory>().To<ExplosionFactory>().AsSingle();
+    }
 
     private void BindStateMachine() =>
       Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
