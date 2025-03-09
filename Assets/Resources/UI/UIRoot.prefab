@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8472507742242816491}
   - component: {fileID: 196285595694249251}
   - component: {fileID: 4829055263352647615}
+  - component: {fileID: 2308350171544562082}
+  - component: {fileID: 3786567590637649284}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -101,3 +103,30 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2308350171544562082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474242174779412025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2656c1cf1dce91e4f85ddc890463b521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _screen: {fileID: 445637680388909683}
+  _cameraCorrector: {fileID: 3786567590637649284}
+--- !u!114 &3786567590637649284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474242174779412025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d940f2106090a0446bf27a703c8fccc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}

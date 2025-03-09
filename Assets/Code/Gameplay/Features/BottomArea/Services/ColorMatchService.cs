@@ -23,12 +23,12 @@ namespace Code.Gameplay.Features.BottomArea.Services
       var matchedDiagonal = new List<Circle>();
 
       matchedLine = CheckLine(size, (i, j) => _matrix[i, j]);
-      if (matchedLine.Count == size) matchedCircles = matchedLine;
-      else
-      {
-        matchedLine = CheckLine(size, (i, j) => _matrix[j, i]);
-        if (matchedLine.Count == size) matchedCircles = matchedLine;
-      }
+      if (matchedLine.Count == size) 
+        matchedCircles = matchedLine;
+      matchedLine = CheckLine(size, (i, j) => _matrix[j, i]);
+      if (matchedLine.Count == size)
+        foreach (var circle in matchedLine.Where(circle => !matchedCircles.Contains(circle)))
+          matchedCircles.Add(circle);
 
       matchedDiagonal = CheckDiagonal(size, (i) => _matrix[i, i]);
       if (matchedDiagonal.Count < size)
