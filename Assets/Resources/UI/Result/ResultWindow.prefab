@@ -242,6 +242,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReplayButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5469456134883334298, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
+      propertyPath: m_text
+      value: "\u041F\u0415\u0420\u0415\u0418\u0413\u0420\u0410\u0422\u042C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469456134883334298, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
+      propertyPath: m_fontSize
+      value: 116.35
+      objectReference: {fileID: 0}
     - target: {fileID: 8275926870227244990, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -354,6 +362,14 @@ PrefabInstance:
     - target: {fileID: 2521643636777637353, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
       propertyPath: m_Name
       value: MenuButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469456134883334298, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
+      propertyPath: m_text
+      value: "\u0412 \u041C\u0415\u041D\u042E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469456134883334298, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
+      propertyPath: m_fontSize
+      value: 116.35
       objectReference: {fileID: 0}
     - target: {fileID: 8275926870227244990, guid: 6f8a7ebfb5b8ac548bfa296fdbdfa5fb, type: 3}
       propertyPath: m_Pivot.x
