@@ -46,6 +46,7 @@ namespace Code.Infrastructure.Installers
     {
       Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
       Container.Bind<IColorMatchService>().To<ColorMatchService>().AsSingle();
+      Container.Bind<ICirclesRemoveService>().To<CirclesRemoveService>().AsSingle();
     }
 
     private void BindUIServices() =>

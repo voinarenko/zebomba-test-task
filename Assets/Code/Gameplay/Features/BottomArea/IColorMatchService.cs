@@ -7,5 +7,6 @@ namespace Code.Gameplay.Features.BottomArea
   {
     List<Circle> Check();
     void SetMatrixElement(int row, int column, Circle circle);
+    bool CheckMatrixFull();
   }
 }

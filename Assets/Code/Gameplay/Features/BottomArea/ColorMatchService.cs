@@ -1,29 +1,43 @@
 ﻿using Code.Gameplay.Features.Movables;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Code.Gameplay.Features.BottomArea
 {
   public class ColorMatchService : IColorMatchService
   {
     private readonly Circle[,] _matrix = new Circle[3, 3];
-    
+
     public void SetMatrixElement(int row, int column, Circle circle = null) =>
       _matrix[row, column] = circle;
+
+    public bool CheckMatrixFull() =>
+      _matrix.Cast<Circle>().Count(circle => circle) == _matrix.Length;
 
     public List<Circle> Check()
     {
       var size = _matrix.GetLength(0);
 
-      var matchedCircles = CheckLine(size, (i, j) => _matrix[i, j]);
-      if (matchedCircles.Count == size) return matchedCircles;
+      var matchedCircles = new List<Circle>();
+      var matchedLine = new List<Circle>();
+      var matchedDiagonal = new List<Circle>();
 
-      matchedCircles = CheckLine(size, (i, j) => _matrix[j, i]);
-      if (matchedCircles.Count == size) return matchedCircles;
+      matchedLine = CheckLine(size, (i, j) => _matrix[i, j]);
+      if (matchedLine.Count == size) matchedCircles = matchedLine;
+      else
+      {
+        matchedLine = CheckLine(size, (i, j) => _matrix[j, i]);
+        if (matchedLine.Count == size) matchedCircles = matchedLine;
+      }
 
-      matchedCircles = CheckDiagonal(size, (i) => _matrix[i, i]);
-      if (matchedCircles.Count == size) return matchedCircles;
+      matchedDiagonal = CheckDiagonal(size, (i) => _matrix[i, i]);
+      if (matchedDiagonal.Count < size)
+        matchedDiagonal = CheckDiagonal(size, (i) => _matrix[i, size - 1 - i]);
+      if (matchedDiagonal.Count == size)
+        foreach (var circle in matchedDiagonal.Where(circle => !matchedCircles.Contains(circle)))
+          matchedCircles.Add(circle);
 
-      matchedCircles = CheckDiagonal(size, (i) => _matrix[i, size - 1 - i]);
       return matchedCircles;
     }
 
@@ -65,7 +79,7 @@ namespace Code.Gameplay.Features.BottomArea
       for (var i = 0; i < size; i++)
       {
         var circle = getElement(i);
-        if (!circle || circle.CurrentColorIndex != startColor) 
+        if (!circle || circle.CurrentColorIndex != startColor)
           return new List<Circle>();
         matchedCircles.Add(circle);
       }
