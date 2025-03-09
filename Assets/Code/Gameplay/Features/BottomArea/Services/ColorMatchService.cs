@@ -8,8 +8,8 @@ namespace Code.Gameplay.Features.BottomArea.Services
   {
     private readonly Circle[,] _matrix = new Circle[3, 3];
 
-    public void SetMatrixElement(int row, int column, Circle circle = null) =>
-      _matrix[row, column] = circle;
+    public void SetMatrixElement(int column, int row, Circle circle = null) =>
+      _matrix[column, row] = circle;
 
     public bool CheckMatrixFull() =>
       _matrix.Cast<Circle>().Count(circle => circle) == _matrix.Length;

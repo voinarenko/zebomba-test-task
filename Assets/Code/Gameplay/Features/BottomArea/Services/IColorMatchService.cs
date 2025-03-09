@@ -6,7 +6,7 @@ namespace Code.Gameplay.Features.BottomArea.Services
   public interface IColorMatchService
   {
     List<Circle> Check();
-    void SetMatrixElement(int row, int column, Circle circle);
+    void SetMatrixElement(int column, int row, Circle circle);
     bool CheckMatrixFull();
   }
 }
