@@ -8,27 +8,71 @@ namespace Code.Gameplay.Features.BottomArea
   {
     public readonly Circle[,] Matrix = new Circle[3, 3];
 
-    public void Check()
+    public List<Circle> Check()
     {
-      var horizontalCount = Matrix.GetLength(0);
-      var verticalCount = Matrix.GetLength(1);
+      var size = Matrix.GetLength(0);
 
-      for (var i = 0; i < horizontalCount; i++)
+      var matchedCircles = CheckLine(size, (i, j) => Matrix[i, j]);
+      if (matchedCircles.Count == size) return matchedCircles;
+
+      matchedCircles = CheckLine(size, (i, j) => Matrix[j, i]);
+      if (matchedCircles.Count == size) return matchedCircles;
+
+      matchedCircles = CheckDiagonal(size, (i) => Matrix[i, i]);
+      if (matchedCircles.Count == size) return matchedCircles;
+
+      matchedCircles = CheckDiagonal(size, (i) => Matrix[i, size - 1 - i]);
+      return matchedCircles;
+    }
+
+    private static List<Circle> CheckLine(int size, System.Func<int, int, Circle> getElement)
+    {
+      for (var i = 0; i < size; i++)
       {
         var matchedCircles = new List<Circle>();
-        for (var j = 0; j < verticalCount; j++)
+        var startCircle = getElement(i, 0);
+        if (!startCircle) continue;
+
+        var startColor = startCircle.CurrentColorIndex;
+        var isWin = true;
+
+        for (var j = 0; j < size; j++)
         {
-          if (!Matrix[i, j])
+          var circle = getElement(i, j);
+          if (!circle || circle.CurrentColorIndex != startColor)
+          {
+            isWin = false;
             break;
-          
-          if (Matrix[i, j].CurrentColorIndex != Matrix[i, 0].CurrentColorIndex)
-            break;
-          
-          matchedCircles.Add(Matrix[i, j]);
+          }
+          matchedCircles.Add(circle);
         }
-        if (matchedCircles.Count == verticalCount) 
-          print($"vertical {matchedCircles[0].CurrentColorIndex}");
+
+        if (isWin && matchedCircles.Count == size)
+        {
+          print($"Winning line: {startColor}");
+          return matchedCircles;
+        }
       }
+      return new List<Circle>();
+    }
+
+    private static List<Circle> CheckDiagonal(int size, System.Func<int, Circle> getElement)
+    {
+      var matchedCircles = new List<Circle>();
+      var startCircle = getElement(0);
+      if (!startCircle) return matchedCircles;
+
+      var startColor = startCircle.CurrentColorIndex;
+      for (var i = 0; i < size; i++)
+      {
+        var circle = getElement(i);
+        if (!circle || circle.CurrentColorIndex != startColor) 
+          return new List<Circle>();
+        matchedCircles.Add(circle);
+      }
+
+      print($"Winning diagonal: {startColor}");
+      return matchedCircles;
     }
   }
 }

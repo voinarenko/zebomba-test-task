@@ -16,10 +16,10 @@ namespace Code.Gameplay.Features.BottomArea
     [SerializeField] private List<Well> _wells;
     private DroppedCircles _droppedCircles;
     private IInputService _inputService;
+    private ICircleFactory _circleFactory;
     private Transform _circlesInWells;
     private Circle _currentCircle;
     private InputActions _controls;
-    private ICircleFactory _circleFactory;
 
     [Inject]
     public void Construct(IInputService inputService, ICircleFactory circleFactory)
@@ -71,7 +71,8 @@ namespace Code.Gameplay.Features.BottomArea
             .SetSpeedBased()
             .OnComplete(() =>
             {
-              _droppedCircles.Check();
+              var matchedCircles = _droppedCircles.Check();
+              print($"matched circles count = {matchedCircles.Count}");
               _currentCircle = _circleFactory.GetCircle();
               _controls.Enable();
             });
