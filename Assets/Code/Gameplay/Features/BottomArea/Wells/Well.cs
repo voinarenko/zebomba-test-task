@@ -25,5 +25,8 @@ namespace Code.Gameplay.Features.BottomArea.Wells
       }
       return result;
     }
+
+    public Vector3 GetSlotPosition(int emptySlot) =>
+      _slots[emptySlot].transform.position;
   }
 }
