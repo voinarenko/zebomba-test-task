@@ -23,6 +23,9 @@ namespace Code.Gameplay.Menu.UI
       _windowService = windowService;
     }
 
+    private void OnDestroy() => 
+      PlayButton.onClick.RemoveAllListeners();
+    
     protected override void Initialize() =>
       PlayButton.onClick.AddListener(Play);
 

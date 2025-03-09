@@ -7,5 +7,6 @@ namespace Code.Gameplay.Features.Movables.Factory
     Circle GetCircle();
     void SetContainers(Transform container, Transform pool);
     void PutCircle(Circle circle);
+    void ClearPool();
   }
 }

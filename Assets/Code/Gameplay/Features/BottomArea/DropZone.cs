@@ -5,6 +5,7 @@ using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
+using Code.Progress.Provider;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +28,23 @@ namespace Code.Gameplay.Features.BottomArea
     private Circle _currentCircle;
     private InputActions _controls;
     private readonly List<Circle> _totalCircles = new();
+    private IProgressProvider _progress;
 
     [Inject]
     public void Construct(IInputService inputService, ICircleFactory circleFactory,
-      IColorMatchService colorMatchService, ICirclesRemoveService circlesRemoveService, IGameStateMachine stateMachine)
+      IColorMatchService colorMatchService, ICirclesRemoveService circlesRemoveService, IGameStateMachine stateMachine,
+      IProgressProvider progress)
     {
+      _progress = progress;
       _stateMachine = stateMachine;
       _circlesRemoveService = circlesRemoveService;
       _inputService = inputService;
       _circleFactory = circleFactory;
       _colorMatchService = colorMatchService;
     }
+
+    private void OnDestroy() =>
+      _controls.UI.Drop.performed -= DropCircle;
 
     public void SetControls() =>
       _controls = _inputService.GetActions();
@@ -62,9 +69,9 @@ namespace Code.Gameplay.Features.BottomArea
 
     private void DropCircle(InputAction.CallbackContext obj)
     {
-      _ropeRenderer.enabled = false;
+      if (_ropeRenderer) _ropeRenderer.enabled = false;
       _controls.Disable();
-      _currentCircle.transform.SetParent(_circlesInWells);
+      if (_currentCircle) _currentCircle.transform.SetParent(_circlesInWells);
       var well = FindClosestWell(_currentCircle.transform.position.x);
       var slot = well.GetFreeSlot();
       _currentCircle.CurrentWell = well.Index;
@@ -88,7 +95,8 @@ namespace Code.Gameplay.Features.BottomArea
                 _circlesRemoveService.RemoveCircles(matchedCircles, _wells, _totalCircles);
               _currentCircle = _circleFactory.GetCircle();
               _controls.Enable();
-              _ropeRenderer.enabled = true;
+              if (_ropeRenderer) _ropeRenderer.enabled = true;
+              _progress.ProgressData.Score += _currentCircle.Value * matchedCircles.Count;
               if (_colorMatchService.CheckMatrixFull())
                 _stateMachine.Enter<ResultLoadState>();
             });

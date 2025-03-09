@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Code.Gameplay.Features.Movables;
+using Code.Gameplay.Features.Movables.Configs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Gameplay.Windows;
@@ -11,13 +13,18 @@ namespace Code.Gameplay.StaticData
   {
     private Dictionary<WindowId, GameObject> _windowPrefabsById;
     private GameObject _circlePrefab;
+    private List<CircleConfig> _circleConfigs;
 
     public void LoadAll()
     {
       LoadWindows();
-      LoadCircle();
+      LoadCirclesData();
+      LoadCirclePrefab();
     }
 
+    public CircleConfig GetCircleConfig(int id) =>
+      _circleConfigs.FirstOrDefault(x => x.Id == (CircleId)id);
+    
     public GameObject GetCirclePrefab() =>
       _circlePrefab;
 
@@ -32,7 +39,13 @@ namespace Code.Gameplay.StaticData
         .WindowConfigs
         .ToDictionary(x => x.Id, x => x.Prefab);
 
-    private void LoadCircle() => 
+    private void LoadCirclesData() =>
+      _circleConfigs = Resources
+        .Load<CirclesConfig>("Configs/Circles/CirclesConfig")
+        .CircleConfigs
+        .ToList();
+
+    private void LoadCirclePrefab() =>
       _circlePrefab = Resources.Load<GameObject>("Gameplay/Pendulum/Circle");
   }
 }

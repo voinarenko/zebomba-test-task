@@ -4,9 +4,10 @@ namespace Code.Gameplay.Features.Movables
 {
   public class Circle : MonoBehaviour
   {
+    public int Value { get; private set; }
     public int CurrentWell { get; set; }
     public int CurrentSlot { get; set; }
-    public int CurrentColorIndex => _color.CurrentColorIndex;
+    public int CurrentColorIndex { get; private set; }
     public float Speed = 10;
 
     private CircleColor _color;
@@ -18,8 +19,12 @@ namespace Code.Gameplay.Features.Movables
       TryGetComponent(out _move);
     }
 
-    public void Init() =>
-      _color.SetColor();
+    public void Init(int id, Color color, int value)
+    {
+      CurrentColorIndex = id;
+      _color.SetColor(color);
+      Value = value;
+    }
 
     public void Shift(Vector3 newPosition) =>
       _move.Shift(newPosition, Speed);

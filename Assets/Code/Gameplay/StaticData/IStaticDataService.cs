@@ -1,4 +1,5 @@
-﻿using Code.Gameplay.Windows;
+﻿using Code.Gameplay.Features.Movables.Configs;
+using Code.Gameplay.Windows;
 using UnityEngine;
 
 namespace Code.Gameplay.StaticData
@@ -9,5 +10,6 @@ namespace Code.Gameplay.StaticData
     
     GameObject GetWindowPrefab(WindowId id);
     GameObject GetCirclePrefab();
+    CircleConfig GetCircleConfig(int id);
   }
 }

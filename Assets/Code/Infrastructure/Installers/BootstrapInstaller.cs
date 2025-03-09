@@ -1,3 +1,4 @@
+using Code.Gameplay.Common.Random;
 using Code.Gameplay.Features.BottomArea.Services;
 using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
@@ -38,6 +39,7 @@ namespace Code.Infrastructure.Installers
 
     private void BindCommonServices()
     {
+      Container.Bind<IRandomService>().To<UnityRandomService>().AsSingle();
       Container.Bind<IAsyncService>().To<AsyncService>().AsSingle();
       Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
     }
