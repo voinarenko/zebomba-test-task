@@ -1,3 +1,4 @@
+using Code.Gameplay.Features.BottomArea;
 using Code.Gameplay.Features.Movables.Factory;
 using Code.Gameplay.Input.Service;
 using Code.Gameplay.StaticData;
@@ -41,8 +42,11 @@ namespace Code.Infrastructure.Installers
       Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
     }
 
-    private void BindGameplayServices() =>
+    private void BindGameplayServices()
+    {
       Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+      Container.Bind<IColorMatchService>().To<ColorMatchService>().AsSingle();
+    }
 
     private void BindUIServices() =>
       Container.Bind<IWindowService>().To<WindowService>().AsSingle();

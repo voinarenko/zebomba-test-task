@@ -14,7 +14,7 @@ namespace Code.Gameplay.Features.BottomArea
   public class DropZone : MonoBehaviour
   {
     [SerializeField] private List<Well> _wells;
-    private DroppedCircles _droppedCircles;
+    private IColorMatchService _colorMatchService;
     private IInputService _inputService;
     private ICircleFactory _circleFactory;
     private Transform _circlesInWells;
@@ -22,14 +22,12 @@ namespace Code.Gameplay.Features.BottomArea
     private InputActions _controls;
 
     [Inject]
-    public void Construct(IInputService inputService, ICircleFactory circleFactory)
+    public void Construct(IInputService inputService, ICircleFactory circleFactory, IColorMatchService colorMatchService)
     {
-      _circleFactory = circleFactory;
       _inputService = inputService;
+      _circleFactory = circleFactory;
+      _colorMatchService = colorMatchService;
     }
-    
-    private void Awake() => 
-      TryGetComponent(out _droppedCircles);
 
     public void SetControls() => 
       _controls = _inputService.GetActions();
@@ -58,7 +56,7 @@ namespace Code.Gameplay.Features.BottomArea
       _currentCircle.transform.SetParent(_circlesInWells);
       var well = FindClosestWell(_currentCircle.transform.position.x);
       var slot = well.GetFreeSlot();
-      _droppedCircles.Matrix[well.Index, slot.Index] = _currentCircle;
+      _colorMatchService.SetMatrixElement(well.Index, slot.Index, _currentCircle);
       _currentCircle.transform
         .DOMove(well.transform.position, _currentCircle.Speed)
         .SetEase(Ease.Linear)
@@ -71,7 +69,7 @@ namespace Code.Gameplay.Features.BottomArea
             .SetSpeedBased()
             .OnComplete(() =>
             {
-              var matchedCircles = _droppedCircles.Check();
+              var matchedCircles = _colorMatchService.Check();
               print($"matched circles count = {matchedCircles.Count}");
               _currentCircle = _circleFactory.GetCircle();
               _controls.Enable();

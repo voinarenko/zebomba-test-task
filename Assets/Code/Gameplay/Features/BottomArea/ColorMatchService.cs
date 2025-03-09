@@ -1,27 +1,29 @@
 ﻿using Code.Gameplay.Features.Movables;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Code.Gameplay.Features.BottomArea
 {
-  public class DroppedCircles : MonoBehaviour
+  public class ColorMatchService : IColorMatchService
   {
-    public readonly Circle[,] Matrix = new Circle[3, 3];
+    private readonly Circle[,] _matrix = new Circle[3, 3];
+    
+    public void SetMatrixElement(int row, int column, Circle circle = null) =>
+      _matrix[row, column] = circle;
 
     public List<Circle> Check()
     {
-      var size = Matrix.GetLength(0);
+      var size = _matrix.GetLength(0);
 
-      var matchedCircles = CheckLine(size, (i, j) => Matrix[i, j]);
+      var matchedCircles = CheckLine(size, (i, j) => _matrix[i, j]);
       if (matchedCircles.Count == size) return matchedCircles;
 
-      matchedCircles = CheckLine(size, (i, j) => Matrix[j, i]);
+      matchedCircles = CheckLine(size, (i, j) => _matrix[j, i]);
       if (matchedCircles.Count == size) return matchedCircles;
 
-      matchedCircles = CheckDiagonal(size, (i) => Matrix[i, i]);
+      matchedCircles = CheckDiagonal(size, (i) => _matrix[i, i]);
       if (matchedCircles.Count == size) return matchedCircles;
 
-      matchedCircles = CheckDiagonal(size, (i) => Matrix[i, size - 1 - i]);
+      matchedCircles = CheckDiagonal(size, (i) => _matrix[i, size - 1 - i]);
       return matchedCircles;
     }
 
@@ -34,24 +36,21 @@ namespace Code.Gameplay.Features.BottomArea
         if (!startCircle) continue;
 
         var startColor = startCircle.CurrentColorIndex;
-        var isWin = true;
+        var isFull = true;
 
         for (var j = 0; j < size; j++)
         {
           var circle = getElement(i, j);
           if (!circle || circle.CurrentColorIndex != startColor)
           {
-            isWin = false;
+            isFull = false;
             break;
           }
           matchedCircles.Add(circle);
         }
 
-        if (isWin && matchedCircles.Count == size)
-        {
-          print($"Winning line: {startColor}");
+        if (isFull && matchedCircles.Count == size)
           return matchedCircles;
-        }
       }
       return new List<Circle>();
     }
@@ -70,8 +69,6 @@ namespace Code.Gameplay.Features.BottomArea
           return new List<Circle>();
         matchedCircles.Add(circle);
       }
-
-      print($"Winning diagonal: {startColor}");
       return matchedCircles;
     }
   }
