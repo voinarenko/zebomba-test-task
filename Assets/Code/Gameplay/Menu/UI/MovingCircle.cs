@@ -14,6 +14,8 @@ namespace Code.Gameplay.Menu.UI
     private Vector3 _startPosition;
     private SpriteRenderer _renderer;
     private IStaticDataService _staticData;
+    private Tweener _moveTweener;
+    private Tweener _shimmerTweener;
 
     [Inject]
     public void Construct(IRandomService randomService, IStaticDataService staticData)
@@ -30,9 +32,15 @@ namespace Code.Gameplay.Menu.UI
       Shimmer();
     }
 
+    private void OnDestroy()
+    {
+      _moveTweener?.Kill();
+      _shimmerTweener?.Kill();
+    }
+
     private void Move()
     {
-      transform
+      _moveTweener = transform
         .DOMove(new Vector3(transform.position.x, -_startPosition.y, transform.position.z), Duration)
         .SetEase(Ease.InOutSine)
         .SetLoops(-1, LoopType.Yoyo);
@@ -40,7 +48,8 @@ namespace Code.Gameplay.Menu.UI
 
     private void Shimmer()
     {
-      _renderer.DOColor(_staticData.GetCircleConfig(_randomService.Range(0, (int)CircleId.Count)).Color, Duration)
+      _shimmerTweener = _renderer
+        .DOColor(_staticData.GetCircleConfig(_randomService.Range(0, (int)CircleId.Count)).Color, Duration)
         .SetEase(Ease.Linear)
         .OnComplete(Shimmer);
     }
